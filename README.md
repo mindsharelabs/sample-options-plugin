@@ -1,4 +1,6 @@
 sample-options-plugin
 =====================
 
-Same plugin illustrating how to use Options for WordPress
+Sample plugin illustrating how to use Options for WordPress
+
+See [options.mindsharelabs.com](http://options.mindsharelabs.com)
