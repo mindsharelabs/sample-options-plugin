@@ -11,15 +11,21 @@ if(!class_exists('PUGINNAME_options_config')) {
 			$this->create_settings();
 
 			add_action('show_section_secondary', array($this, 'secondary_display'), 10, 2);
+			add_action('enqueue_scripts_'.PN_PLUGIN_SLUG, array($this, 'enqueue_scripts'));
 
 			add_action('init', array($this, 'initialize'));
+
+		}
+
+		public function enqueue_scripts() {
+
 		}
 
 		private function do_setup() {
 			$this->setup = array(
 				 'project_name' => PN_PLUGIN_NAME,
 				 'project_slug' => PN_PLUGIN_SLUG,
-				 'menu'         => 'settings',
+				 'menu'         => null,
 				 'page_title'   => sprintf(__('%s Settings', 'sb'), PN_PLUGIN_NAME),
 				 'menu_title'   => PN_PLUGIN_NAME,
 				 'capability'   => 'manage_options',
@@ -32,12 +38,14 @@ if(!class_exists('PUGINNAME_options_config')) {
 		private function create_sections() {
 
 			$this->subpages["first-page"] = array(
+													'menu'          => 'plugin-name-settings',
 													'page_title'	=> 'First Page Settings',
 													'menu_title'	=> 'First Page',
 													'capability'	=> 'manage_options',
 												);
 
 			$this->subpages["second-page"] = array(
+												'menu'          => 'plugin-name-settings',
 												'page_title'	=> 'Second Page Settings',
 												'menu_title'	=> 'Second Page',
 												'capability'	=> 'manage_options'
@@ -45,7 +53,6 @@ if(!class_exists('PUGINNAME_options_config')) {
 
 			$this->sections['plugin-name-settings']['main'] = __('General Settings');
 			$this->sections['plugin-name-settings']['reset'] = __('Reset to Defaults');
-			$this->sections['first-page']['general'] = __('General Settings');
 			$this->sections['first-page']['additional'] = __('Additional Settings');
 			$this->sections['second-page']['secondary'] = __('Second Page Tab');
 
@@ -61,7 +68,14 @@ if(!class_exists('PUGINNAME_options_config')) {
 					'desc'    => __('Text field description.'),
 					'std'     => 'Text field default',
 					'type'    => 'text',
-					'section' => 'general'
+					'section' => 'additional'
+			);
+
+			$this->settings['password_two'] = array(
+				'title'   => __('Password'),
+				'desc'    => __('Please create a password.'),
+				'type'    => 'password',
+				'section' => 'additional'
 			);
 
 			$this->settings['text_area_one'] = array(
@@ -81,12 +95,13 @@ if(!class_exists('PUGINNAME_options_config')) {
 					'section' => 'additional'
 			);
 
-			/*$this->settings['heading_one'] = array(
+			$this->settings['heading_one'] = array(
 					'title'   => __('Heading title'),
 					'desc'    => __('Header description'),
 					'type'    => 'heading',
 					'section' => 'additional'
-			);*/
+			);
+
 			$this->settings['checkbox_one'] = array(
 					'title'   => __('Checkbox'),
 					'desc'    => __('Checkbox description'),
@@ -124,10 +139,43 @@ if(!class_exists('PUGINNAME_options_config')) {
 					'type'    => 'select',
 					'section' => 'additional',
 					'choices' => array(
-								'one'	=> 'One',
-								'two'	=> 'Two',
-								'three' => 'Three'
+								'one'	    => 'One',
+								'two'	    => 'Two',
+								'three'     => 'Three',
+								'four'      => 'Four',
+								'five'      => 'Five',
+								'six'       => 'Six',
+								'seven'     => 'Seven',
+								'eight'     => 'Eight',
+								'nine'      => 'Nine',
+								'ten'       => 'Ten',
+								'eleven'    => 'Eleven',
+								'twelve'    => 'Twelve',
+					            'apple'     => 'Apple'
 							 )
+			);
+
+			$this->settings['select_two'] = array(
+				'title'   => __('Multi Select'),
+				'desc'    => __('Select description'),
+				'std'     => 'two',
+				'type'    => 'multi_select',
+				'section' => 'additional',
+				'choices' => array(
+					'one'	    => 'One',
+					'two'	    => 'Two',
+					'three'     => 'Three',
+					'four'      => 'Four',
+					'five'      => 'Five',
+					'six'       => 'Six',
+					'seven'     => 'Seven',
+					'eight'     => 'Eight',
+					'nine'      => 'Nine',
+					'ten'       => 'Ten',
+					'eleven'    => 'Eleven',
+					'twelve'    => 'Twelve',
+					'apple'     => 'Apple'
+				)
 			);
 
 			$this->settings['password_one'] = array(
@@ -233,7 +281,6 @@ if(!class_exists('PUGINNAME_options_config')) {
 					'title'   => __('File'),
 					'desc'    => __('Upload a file'),
 					'type'    => 'file',
-					'layout'  => 'image',
 					'width'   => 250,
 					'height'  => 150,
 					'section' => 'additional'
@@ -256,7 +303,7 @@ if(!class_exists('PUGINNAME_options_config')) {
 		}
 
 		public function initialize() {
-			parent::__construct($this->setup, $this->sections, $this->settings, $this->subpages);
+			parent::__construct($this->setup, $this->settings, $this->sections, $this->subpages);
 		}
 
 	}

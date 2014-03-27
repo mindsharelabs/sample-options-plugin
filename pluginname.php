@@ -3,7 +3,7 @@
 Plugin Name: Plugin Name (Options)
 Plugin URI: http://options.mindsharelabs.com/
 Description: Demo plugin to develop and showcase Options for WordPress
-Version: 1.0
+Version: 1.1
 Author: Mindshare Studios, Inc.
 Author URI: http://mindsharelabs.com/
 */
